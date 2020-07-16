@@ -1,38 +1,37 @@
-import { func } from "prop-types";
-import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN_START } from "../actions/actionTypes";
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+} from '../actions/actionTypes';
 
-const initalAuthState = {
+const initialAuthState = {
   user: {},
-
   error: null,
   isLoggedin: false,
-  isProgress: false,
+  inProgress: false,
 };
-export default function auth(state = initalAuthState, action) {
+
+export default function auth(state = initialAuthState, action) {
   switch (action.type) {
     case LOGIN_START:
       return {
         ...state,
-        isProgress: true,
+        inProgress: true,
       };
-
     case LOGIN_SUCCESS:
       return {
         ...state,
         user: action.user,
         isLoggedin: true,
-        isProgress: false,
+        inProgress: false,
         error: null,
       };
-
     case LOGIN_FAILED:
       return {
         ...state,
-       
-        isProgress: false,
+        inProgress: false,
         error: action.error,
       };
-
     default:
       return state;
   }
