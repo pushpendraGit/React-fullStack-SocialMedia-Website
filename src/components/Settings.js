@@ -1,16 +1,14 @@
-import React, { useReducer } from "react";
-import { connect } from "react-redux";
-import { editUser,clearAuthState } from "../actions/auth";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { editUser, clearAuthState } from '../actions/auth';
 
-class Settings extends React.Component {
+class Settings extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       name: props.auth.user.name,
-      password: "",
-
-      confirmPassword: "",
+      password: '',
+      confirmPassword: '',
       editMode: false,
     };
   }
@@ -21,21 +19,18 @@ class Settings extends React.Component {
     });
   };
 
-  componentWillUnmount(){
-
-    this.props.dispatch(clearAuthState());
-  }
-
   handleSave = () => {
     const { password, confirmPassword, name } = this.state;
-
     const { user } = this.props.auth;
 
     this.props.dispatch(editUser(name, password, confirmPassword, user._id));
   };
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
+  }
   render() {
     const { user, error } = this.props.auth;
-
     const { editMode } = this.state;
     return (
       <div className="settings">
@@ -43,16 +38,15 @@ class Settings extends React.Component {
           <img
             src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
             alt="user-dp"
-            id="user-dp"
           />
         </div>
+
         {error && <div className="alert error-dailog">{error}</div>}
         {error === false && (
           <div className="alert success-dailog">
-            Successfully Updated Profile{" "}
+            Successfully updated profile!
           </div>
         )}
-
         <div className="field">
           <div className="field-label">Email</div>
           <div className="field-value">{user.email}</div>
@@ -63,7 +57,7 @@ class Settings extends React.Component {
           {editMode ? (
             <input
               type="text"
-              onChange={(e) => this.handleChange("name", e.target.value)}
+              onChange={(e) => this.handleChange('name', e.target.value)}
               value={this.state.name}
             />
           ) : (
@@ -73,11 +67,11 @@ class Settings extends React.Component {
 
         {editMode && (
           <div className="field">
-            <div className="field-label">New Password</div>
+            <div className="field-label">New password</div>
 
             <input
               type="password"
-              onChange={(e) => this.handleChange("password", e.target.value)}
+              onChange={(e) => this.handleChange('password', e.target.value)}
               value={this.state.password}
             />
           </div>
@@ -85,12 +79,12 @@ class Settings extends React.Component {
 
         {editMode && (
           <div className="field">
-            <div className="field-label">Confirm Password</div>
+            <div className="field-label">Confirm password</div>
 
             <input
               type="password"
               onChange={(e) =>
-                this.handleChange("confirmPassword", e.target.value)
+                this.handleChange('confirmPassword', e.target.value)
               }
               value={this.state.confirmPassword}
             />
@@ -105,18 +99,18 @@ class Settings extends React.Component {
           ) : (
             <button
               className="button edit-btn"
-              onClick={() => this.handleChange("editMode", true)}
+              onClick={() => this.handleChange('editMode', true)}
             >
-              Edit Profile
+              Edit profile
             </button>
           )}
 
           {editMode && (
             <div
               className="go-back"
-              onClick={() => this.handleChange("editMode", false)}
+              onClick={() => this.handleChange('editMode', false)}
             >
-              Go Back
+              Go back
             </div>
           )}
         </div>
@@ -125,10 +119,9 @@ class Settings extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ auth }) {
   return {
-    auth: state.auth,
+    auth,
   };
 }
-
 export default connect(mapStateToProps)(Settings);
