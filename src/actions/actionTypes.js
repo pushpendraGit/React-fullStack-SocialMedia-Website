@@ -25,3 +25,10 @@ export const FETCH_USER_PROFILE = 'FETCH_USER_PROFILE';
 export const FETCH_FRIENDS_SUCCESS = 'FETCH_FRIENDS_SUCCESS';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const REMOVE_FRIEND = 'REMOVE_FRIEND';
+
+//for Post
+
+export const ADD_POST = 'ADD_POST';
+export const ADD_COMMENT = 'ADD_COMMENT';
+
+export const UPDATE_POST_LIKE = 'UPDATE_POST_LIKE';
